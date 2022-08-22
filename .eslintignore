@@ -1,0 +1,8 @@
+# TypeScript generated build output.
+dist/
+
+# Conventional commit linter settings.
+commitlint.config.js
+
+# (Custom) Testing directory/
+test/

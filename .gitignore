@@ -1,0 +1,25 @@
+# Dependency directories.
+node_modules/
+
+# TypeScript generated build output.
+dist/**/*.js
+
+# macOS binary file.
+*.DS_Store
+
+# dotenv environment variable files.
+test.env
+.env
+
+# Caches.
+.tsbuildinfo
+.eslintcache
+
+# Visual Studio Code (Custom) settings.
+.vscode/settings.json
+
+# Axe Linter (Custom) settings.
+axe-linter.yml
+
+# (Custom) Testing directory.
+test/

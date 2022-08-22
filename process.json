@@ -1,0 +1,9 @@
+{
+  "apps": [
+      {
+          "name": "my-bot",
+          "script": "./dist/bot.js",
+          "restart_delay": 10000
+      }
+  ]
+}

@@ -1,0 +1,1 @@
+# TypeScript Discord.js Bot Template

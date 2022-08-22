@@ -1,0 +1,65 @@
+name: Bug Report
+description: Create a report to help us improve this template!
+labels: bug
+
+body:
+  - type: textarea
+    id: description
+    validations: 
+        required: true
+    attributes:
+        label: Describe your issue.
+        description: |
+            A clear and concise description of what the issue is.
+        placeholder: | 
+            Examples:
+              - I cannot do X.
+              - I have trouble implementing X onto Y.
+              - Feature X has stopped working for me.
+
+  - type: textarea
+    id: reproduction
+    validations:
+        required: true
+    attributes:
+        label: Steps to reproduce the issue.
+        description: |
+            Steps to reproduce the behavior of your issue.
+        placeholder: |
+            1. Go to '...'
+            2. Click on '....'
+            3. Scroll down to '....'
+            4. See the ... logs.
+
+  - type: textarea
+    id: behavior
+    attributes:
+        label: Expected and Intended Behavior.
+        description: A clear and concise description of what you expected and intend to happen.
+
+  - type: textarea
+    id: screenshots
+    attributes:
+        label: Screenshots & Visual Aids!
+        description: While optional, it's highly encouraged to include screenshots, videos, and other visual aids to illustrate what you have found.
+        placeholder: You can upload them using the text editor's dedicated button.
+
+  - type: textarea
+    id: versions
+    validations:
+        required: true
+    attributes:
+        label: OS and Versions
+        description: |
+            The name of your Operating System and versioning of applicable modules.
+        placeholder: |
+            Examples:
+              - OS: [e.g. Windows/MacOS/Linux]
+              - Runtime: [e.g. Node.js v16.9.0/Node.js LTS]
+              - Version: [e.g. Discord.js v14.0.1 (This template only supports Discord.js v14.0.1 and above!)]
+
+  - type: textarea
+    id: context
+    attributes:
+        label: Further Additional Context.
+        description: (Optional Section) Add any other context about the problem here or a message in general for the maintainer(s)/owner(s).

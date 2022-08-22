@@ -1,0 +1,28 @@
+const { truncate } = require('fs');
+
+module.exports = {
+	...require('@sapphire/prettier-config'),
+	// $schema: 'http://json.schemastore.org/prettierrc',
+	// useTabs: true,
+	printWidth: 80,
+	tabWidth: 2,
+	// semi: true,
+	singleQuote: true,
+	// quoteProps: 'as-needed',
+	// jsxSingleQuote: false,
+	trailingComma: 'all',
+	// bracketSpaceing: true,
+	// bracketSameLine: false,
+	// arrowParens: 'always',
+	// rangeStart: 0,
+	// rangeEnd: Infinity,
+	parser: 'typescript',
+	// filepath: 'foo.css',
+	// requirePragma: false,
+	proseWrap: 'always',
+	htmlWhitespaceSensitivity: 'strict',
+	vueIndentScriptAndStyle: true,
+	// endOfLine: 'lf',
+	// embeddedLanguageFormatting: 'auto',
+	// singleAttributePerLine: false,
+};

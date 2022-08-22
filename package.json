@@ -1,0 +1,88 @@
+{
+  "name": "my-bot",
+  "version": "1.0.0",
+  "description": "A public TypeScript Discord.js v14 bot template.",
+  "main": "dist/src/main.js",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc --project tsconfig.eslint.json",
+    "build:watch": "tsc --project tsconfig.eslint.json --watch",
+    "clean": "git clean -xdf",
+    "clean:dry": "git clean -xdf --dry-run",
+    "dev": "node .",
+    "deploy-commands": "npm run build && node dist/deploy-commands.js",
+    "format": "prettier --check \"**/*.{js,ts}\"",
+    "format:fix": "prettier --write \"**/*.{js,ts}\"",
+    "lint": "eslint . --cache --ext .js,.ts",
+    "lint:fix": "eslint . --fix --cache --ext .js,.ts",
+    "pm2:delete": "pm2 delete process.json",
+    "pm2:start": "pm2 start process.json",
+    "pm2:stop": "pm2 stop process.json",
+    "prepare": "is-ci || husky install && chmod ug+x .husky/*",
+    "start": "npm run build && npm run dev",
+    "start:pm2": "npm run build && npm run pm2:start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hauntmore/TypeScript-Discord.js-Bot-Template.git"
+  },
+  "keywords": [
+    "Discord.js",
+    "Discord Bot",
+    "Template",
+    "Typescript"
+  ],
+  "engines": {
+    "node": ">=16.9.0",
+    "npm": ">=7.21.1"
+  },
+  "author": "Hauntmore",
+  "maintainers": [
+    "Omega Gear Development"
+  ],
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/Hauntmore/TypeScript-Discord.js-Bot-Template/issues"
+  },
+  "homepage": "https://github.com/Hauntmore/TypeScript-Discord.js-Bot-Template#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "discord.js": "^14.2.0",
+    "dotenv": "^16.0.1",
+    "glob": "^8.0.3"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@sapphire/prettier-config": "^1.4.4",
+    "@sapphire/ts-config": "^3.3.4",
+    "@types/glob": "^7.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-unicorn": "^43.0.2",
+    "husky": "^8.0.1",
+    "is-ci": "^3.0.1",
+    "lint-staged": "^13.0.3",
+    "pm2": "^5.2.0",
+    "prettier": "^2.7.1",
+    "ts-graphql-plugin": "^2.1.8",
+    "ts-sql-plugin": "^0.10.0",
+    "typescript": "^4.7.4",
+    "typescript-eslint-language-service": "^5.0.0",
+    "typescript-styled-plugin": "^0.18.2"
+  },
+  "optionalDependencies": {
+    "@discordjs/opus": "^0.8.0",
+    "@discordjs/voice": "^0.11.0",
+    "bufferutil": "^4.0.6",
+    "erlpack": "github:discord/erlpack",
+    "heroku": "^7.62.0",
+    "utf-8-validate": "^5.0.9"
+  }
+}

@@ -1,0 +1,101 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "project": "tsconfig.eslint.json",
+		"sourceType": "script",
+		"ecmaVersion": "latest"
+	},
+    "plugins": ["@typescript-eslint", "prettier", "unicorn", "import"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
+        "plugin:prettier/recommended",
+        "prettier/prettier",
+        "airbnb-typescript/base"
+    ],
+    "rules": {
+        "no-constant-condition": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-inferrable-types": [
+            "error",
+            {
+                "ignoreParameters": true
+            }
+        ],
+        "@typescript-eslint/brace-style": "off",
+        "@typescript-eslint/comma-dangle": "off",
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_"
+            }
+        ],
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/require-await": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/return-await": ["error", "always"],
+        "@typescript-eslint/typedef": [
+            "error",
+            {
+                "propertyDeclaration": true
+            }
+        ],
+        "import/extensions": "off",
+        "import/no-extraneous-dependencies": "error",
+        "import/no-unresolved": "off",
+        "import/no-useless-path-segments": "error",
+        "import/order": [
+            "error",
+            {
+                "alphabetize": {
+                    "caseInsensitive": true,
+                    "order": "asc"
+                },
+                "groups": [
+                    ["builtin", "external", "object", "type"],
+                    ["internal", "parent", "sibling", "index"]
+                ],
+                "newlines-between": "always"
+            }
+        ],
+        "no-return-await": "off",
+        "no-unused-vars": "off",
+        "prefer-const": "off",
+        "quotes": [
+            "off",
+            "single",
+            {
+                "allowTemplateLiterals": true
+            }
+        ],
+        "sort-imports": [
+            "error",
+            {
+                "allowSeparatedGroups": true,
+                "ignoreCase": true,
+                "ignoreDeclarationSort": true,
+                "ignoreMemberSort": false,
+                "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+            }
+        ],
+        "unicorn/prefer-node-protocol": "error"
+    }
+}
