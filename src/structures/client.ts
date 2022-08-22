@@ -16,6 +16,8 @@ import { readdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 
+import Logger from './logger';
+
 class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 	public readonly commands: Collection<string, Command>;
 
@@ -23,12 +25,25 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 
 	public readonly modules: Collection<string, ModuleMetaPayload>;
 
+	// eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
 	public constructor(override readonly options: ClientOptions) {
 		super(options);
 
 		this.commands = new Collection<string, Command>();
 		this.events = new Collection<Events, BaseEvent<Events>>();
 		this.modules = new Collection<string, ModuleMetaPayload>();
+	}
+
+	public makeEmbed(data?: EmbedData | APIEmbed | undefined): EmbedBuilder {
+		// The embed color is matching with the regular Discord background color (considered "invisible").
+		return new EmbedBuilder(data).setColor('#2f3136');
+	}
+
+	public async connect(token?: string | undefined): Promise<string> {
+		await this._loadEvents();
+		await this._loadCommands();
+
+		return await super.login(token);
 	}
 
 	private async _loadEvents(
@@ -67,7 +82,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 
 			this.events.set(event.name, event);
 
-			console.log(
+			Logger.info(
 				chalk.magenta(`The ${chalk.blue(event.name)} event has loaded.`),
 			);
 		}
@@ -98,7 +113,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.modules.set(moduleMeta.name!, moduleMeta);
 
-			console.log(
+			Logger.info(
 				chalk.magenta(`Loaded the ${chalk.blue(moduleMeta.name)} module.`),
 			);
 
@@ -127,7 +142,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					moduleMeta.commands!.push(command);
 
-					console.log(
+					Logger.info(
 						chalk.magenta(
 							`The command ${chalk.blue(
 								`${command.data.name}.js`,
@@ -139,18 +154,6 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 		}
 
 		return this.commands;
-	}
-
-	public makeEmbed(data?: EmbedData | APIEmbed | undefined): EmbedBuilder {
-		// The embed color is matching with the regular Discord background color (considered "invisible").
-		return new EmbedBuilder(data).setColor('#2f3136');
-	}
-
-	public async connect(token?: string | undefined): Promise<string> {
-		await this._loadEvents();
-		await this._loadCommands();
-
-		return await super.login(token);
 	}
 }
 

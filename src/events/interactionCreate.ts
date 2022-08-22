@@ -7,7 +7,7 @@ const Event = Events.InteractionCreate;
 export default class extends BaseEvent<typeof Event> {
 	public constructor() {
 		super({
-			name: Events.InteractionCreate,
+			name: Event,
 			description: 'Emitted when an interaction is created.',
 		});
 	}
@@ -26,8 +26,6 @@ export default class extends BaseEvent<typeof Event> {
 			if (!command) return;
 
 			await command.chatInput(interaction);
-		} else {
-			return;
 		}
 	}
 }

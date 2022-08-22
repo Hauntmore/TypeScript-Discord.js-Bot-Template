@@ -7,8 +7,6 @@ import { client } from '../main';
 type Payload = EventPayload<Events>;
 
 abstract class BaseEvent<EventName extends Events> {
-	protected readonly client!: Client<boolean>;
-
 	public readonly name: Payload['name'];
 
 	public readonly description: Payload['description'];
@@ -16,6 +14,8 @@ abstract class BaseEvent<EventName extends Events> {
 	public readonly once?: Payload['once'] | undefined;
 
 	public readonly rest?: Payload['rest'] | undefined;
+
+	protected readonly client!: Client<boolean>;
 
 	public constructor(public readonly payload: Payload) {
 		this.client = client;

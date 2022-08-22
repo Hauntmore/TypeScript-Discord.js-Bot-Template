@@ -2,7 +2,7 @@
   "name": "my-bot",
   "version": "1.0.0",
   "description": "A public TypeScript Discord.js v14 bot template.",
-  "main": "dist/src/main.js",
+  "main": "dist/src/index.js",
   "private": true,
   "type": "commonjs",
   "scripts": {
@@ -21,6 +21,7 @@
     "pm2:stop": "pm2 stop process.json",
     "prepare": "is-ci || husky install && chmod ug+x .husky/*",
     "start": "npm run build && npm run dev",
+    "start:bot": "npm run build && node dist/src/main.js",
     "start:pm2": "npm run build && npm run pm2:start"
   },
   "repository": {
@@ -55,6 +56,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@sapphire/eslint-config": "^4.3.8",
     "@sapphire/prettier-config": "^1.4.4",
     "@sapphire/ts-config": "^3.3.4",
     "@types/glob": "^7.2.0",

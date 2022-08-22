@@ -1,3 +1,4 @@
+// https://www.typescriptlang.org/tsconfig
 {
     "extends": "./tsconfig.json",
     "include": ["./src", "./deploy-commands.js"]

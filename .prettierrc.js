@@ -1,5 +1,4 @@
-const { truncate } = require('fs');
-
+// https://prettier.io/docs/en/configuration.html
 module.exports = {
 	...require('@sapphire/prettier-config'),
 	// $schema: 'http://json.schemastore.org/prettierrc',
