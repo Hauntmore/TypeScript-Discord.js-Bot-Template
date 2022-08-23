@@ -2,7 +2,7 @@
   "apps": [
       {
           "name": "my-bot",
-          "script": "./dist/bot.js",
+          "script": "./dist/src/index.js",
           "restart_delay": 10000
       }
   ]
