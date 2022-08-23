@@ -1,20 +1,20 @@
 import chalk from 'chalk';
 import { GatewayIntentBits } from 'discord.js';
 
+import { NODE_ENV } from './node-env';
 import Client from './structures/client';
 import Logger from './structures/logger';
+import './extensions/extensions';
+import './setup';
 
 export const client = new Client<boolean>({
 	intents: [GatewayIntentBits.Guilds],
 	ws: { properties: { browser: 'Discord iOS' } },
 });
 
-process.on('unhandledRejection', (reason, promise) =>
+process.on('unhandledRejection', (reason: Error, promise) =>
 	Logger.error(
-		chalk.red(
-			(reason as Error).stack || (reason as Error).message,
-			JSON.stringify(promise),
-		),
+		chalk.red(reason.stack || reason.message, JSON.stringify(promise)),
 	),
 );
 
@@ -28,7 +28,10 @@ process.on('uncaughtException', (error, origin) =>
 
 (async () => {
 	try {
-		Logger.info(chalk.yellow('Preparing to connect to the gateway...'));
+		Logger.info(
+			chalk.bold(`${NODE_ENV.title()} Environment.`),
+			chalk.yellow('Preparing to connect to the gateway...'),
+		);
 		await client.connect();
 	} catch (error) {
 		Logger.fatal(chalk.red((error as Error).stack || (error as Error).message));

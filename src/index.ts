@@ -9,8 +9,6 @@ import Logger from './structures/logger';
 		const manager = new ShardingManager('./dist/src/main.js');
 
 		manager.on('shardCreate', (shard) => {
-			Logger.info(chalk.blue(`Launched shard ${chalk.cyan(shard.id)}!`));
-
 			shard
 				.on('death', (process) =>
 					Logger.fatal(
@@ -41,7 +39,12 @@ import Logger from './structures/logger';
 							)}`,
 						),
 					),
+				)
+				.on('error', (error) =>
+					Logger.error(chalk.red(error.stack || error.message)),
 				);
+
+			Logger.info(chalk.blue(`Launched shard ${chalk.blue(shard.id)}!`));
 		});
 
 		Logger.info(chalk.yellow('Preparing to spawn the shards...'));
