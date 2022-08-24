@@ -6,7 +6,9 @@ import { client } from '../main';
 
 type Payload = EventPayload<Events>;
 
-abstract class BaseEvent<EventName extends Events> {
+abstract class BaseEvent<EventName extends Events>
+	implements EventPayload<Events>
+{
 	public readonly name: Payload['name'];
 
 	public readonly description: Payload['description'];

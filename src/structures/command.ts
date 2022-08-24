@@ -6,7 +6,7 @@ import type {
 	ChatInputCommandInteraction,
 } from 'discord.js';
 
-abstract class BaseCommand {
+abstract class BaseCommand implements CommandPayload {
 	public readonly data: CommandPayload['data'];
 
 	public readonly module?: CommandPayload['module'] | undefined;
