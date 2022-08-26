@@ -16,16 +16,16 @@ export const client = new Client<boolean>({
 process.on('unhandledRejection', (reason: Error, promise) =>
 	Logger.error(
 		chalk.red(reason.stack || reason.message),
-		JSON.stringify(promise),
+		chalk.magenta(JSON.stringify(promise)),
 	),
 );
 
 process.on('uncaughtExceptionMonitor', (error, origin) =>
-	Logger.error(chalk.red(error.stack || error.message, origin)),
+	Logger.error(chalk.red(error.stack || error.message, chalk.bgRed(origin))),
 );
 
 process.on('uncaughtException', (error, origin) =>
-	Logger.error(chalk.red(error.stack || error.message, origin)),
+	Logger.error(chalk.red(error.stack || error.message, chalk.bgRed(origin))),
 );
 
 (async () => {

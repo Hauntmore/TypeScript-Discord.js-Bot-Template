@@ -21,9 +21,11 @@ export default class extends BaseEvent<typeof Event> {
 		Logger.info(
 			chalk.green(`Shard ${chalk.blue(id)} is ready!`),
 			chalk.yellow('Unavailable Guilds:'),
-			unavailableGuilds
-				? chalk.bgRed([...unavailableGuilds].join(', '))
-				: chalk.bgGreen('None'),
+			chalk.grey(
+				unavailableGuilds
+					? chalk.bgRed([...unavailableGuilds].join(', '))
+					: chalk.bgGreen('None'),
+			),
 		);
 	}
 }

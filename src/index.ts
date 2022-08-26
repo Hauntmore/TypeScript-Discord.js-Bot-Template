@@ -10,23 +10,21 @@ import Logger from './structures/logger';
 
 		manager.on('shardCreate', (shard) => {
 			shard
-				.on('death', (process) =>
-					Logger.fatal(
-						chalk.redBright('The following process has exited:'),
-						chalk.red(JSON.stringify(process)),
+				.on('disconnect', () =>
+					Logger.info(
+						chalk.grey('The <Client>#shardDisconnect event has emitted.'),
 					),
 				)
-				.on('disconnect', () =>
-					Logger.info('The <Client>#shardDisconnect event has emitted.'),
-				)
 				.on('message', async (message) => {
-					Logger.info(message);
+					Logger.info(chalk.grey(JSON.stringify(message)));
 				})
 				.on('ready', () =>
-					Logger.info('The <Client>#shardReady event has emitted.'),
+					Logger.info(chalk.grey('The <Client>#shardReady event has emitted.')),
 				)
 				.on('reconnecting', () =>
-					Logger.info('The <Client>#shardReconnecting event has emitted.'),
+					Logger.info(
+						chalk.grey('The <Client>#shardReconnecting event has emitted.'),
+					),
 				)
 				.on('spawn', (process) =>
 					Logger.info(

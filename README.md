@@ -1,5 +1,7 @@
 # TypeScript Discord.js Bot Template
 
+**You are expected to know the basic fundamentals of JavaScript, TypeScript, Node.js. It would also be useful if you know basic usage of your device's operating system.**
+
 ## Getting Started
 1. Setting up dotenv files.
     - Remove `.example` from the `test.env.example` and `.env.example` files.

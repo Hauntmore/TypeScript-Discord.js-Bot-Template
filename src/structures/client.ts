@@ -29,9 +29,9 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 	public constructor(override readonly options: ClientOptions) {
 		super(options);
 
-		this.commands = new Collection<string, Command>();
-		this.events = new Collection<Events, BaseEvent<Events>>();
-		this.modules = new Collection<string, ModuleMetaPayload>();
+		this.commands = new Collection();
+		this.events = new Collection();
+		this.modules = new Collection();
 	}
 
 	public makeEmbed(data?: EmbedData | APIEmbed | undefined): EmbedBuilder {
@@ -133,8 +133,8 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 
 					const command = new Command(this) as Command;
 
-					Object.assign(command, {
-						module: moduleMeta,
+					Object.defineProperty(command, 'module', {
+						value: moduleMeta,
 					});
 
 					commands.push(Command);

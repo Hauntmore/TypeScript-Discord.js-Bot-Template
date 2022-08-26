@@ -18,5 +18,5 @@ RUN npm run build
 # Expose ports.
 EXPOSE 8080
 
-# Run the application
+# Run the application.
 CMD [ "node", "dist/src/index.js" ]

@@ -41,6 +41,8 @@ const rest = new REST({ version }).setToken(process.env['DISCORD_TOKEN']);
 		await rest.put(Routes.applicationCommands(process.env['CLIENT_ID']), {
 			body: commands,
 		});
+
+		Logger.info(chalk.blue('Successful deployment.'));
 	} catch (error) {
 		Logger.error(chalk.red(error.stack || error.message));
 	}

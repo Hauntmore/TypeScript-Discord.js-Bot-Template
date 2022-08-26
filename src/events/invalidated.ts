@@ -17,7 +17,6 @@ export default class extends BaseEvent<typeof Event> {
 
 	public run(): void {
 		Logger.fatal(chalk.red('Gracefully closing this Node.js session.'));
-
 		process.exit(1);
 	}
 }

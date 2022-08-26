@@ -23,7 +23,7 @@ export default class extends BaseEvent<typeof Event> {
 				`Shard ${chalk.blue(id)} is attempting to reconnect/re-identify.`,
 			),
 			chalk.yellow('Replayed Events'),
-			replayedEvents,
+			chalk.grey(replayedEvents),
 		);
 	}
 }
