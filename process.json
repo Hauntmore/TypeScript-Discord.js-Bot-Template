@@ -1,9 +1,14 @@
 {
   "apps": [
       {
-          "name": "my-bot",
+          "name": "dank-assistant",
           "script": "./dist/src/index.js",
-          "restart_delay": 10000
+          "watch": false,
+          "autorestart": true,
+          "restart_delay": 10000,
+          "env": {
+            "NODE_ENV": "development"
+          }
       }
   ]
 }

@@ -1,7 +1,6 @@
 import chalk from 'chalk';
 import { GatewayIntentBits } from 'discord.js';
 
-import { NODE_ENV } from './node-env';
 import Client from './structures/client';
 import Logger from './structures/logger';
 import './extensions/extensions';
@@ -31,7 +30,7 @@ process.on('uncaughtException', (error, origin) =>
 (async () => {
 	try {
 		Logger.info(
-			chalk.bold(`${NODE_ENV.title()} Environment.`),
+			chalk.bold(`${process.env['NODE_ENV'].title()} Environment.`),
 			chalk.yellow('Preparing to connect to the gateway...'),
 		);
 		await client.connect();

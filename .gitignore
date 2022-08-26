@@ -10,7 +10,8 @@ dist/**/*.js
 *.DS_Store
 
 # dotenv environment variable files.
-test.env
+development.env
+production.env
 .env
 
 # Caches.
