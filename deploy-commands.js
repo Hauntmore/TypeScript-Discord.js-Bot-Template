@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const { REST, Routes } = require('discord.js');
+const path = require('node:path');
 const { promisify } = require('node:util');
 require('./src/setup');
 
@@ -15,7 +16,9 @@ const rest = new REST({ version }).setToken(process.env['DISCORD_TOKEN']);
 
 (async (moduleMetaFileName = 'module.meta.js', pattern = '**/*.js') => {
 	try {
-		const files = await glob(`${process.cwd()}/dist/src/commands/${pattern}`);
+		const files = await glob(
+			path.join(process.cwd(), 'dist', 'src', 'commands', pattern),
+		);
 
 		for (const file of files) {
 			delete require.cache[file];

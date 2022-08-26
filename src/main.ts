@@ -10,11 +10,13 @@ import './setup';
 export const client = new Client<boolean>({
 	intents: [GatewayIntentBits.Guilds],
 	ws: { properties: { browser: 'Discord iOS' } },
+	shards: 'auto',
 });
 
 process.on('unhandledRejection', (reason: Error, promise) =>
 	Logger.error(
-		chalk.red(reason.stack || reason.message, JSON.stringify(promise)),
+		chalk.red(reason.stack || reason.message),
+		JSON.stringify(promise),
 	),
 );
 

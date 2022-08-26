@@ -1,4 +1,4 @@
-import type { ModuleMetaPayload } from '../index';
+import type { ModuleMetaPayload } from '..';
 import type { SlashCommandBuilder } from 'discord.js';
 
 interface CommandPayload {

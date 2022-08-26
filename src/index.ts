@@ -12,11 +12,8 @@ import Logger from './structures/logger';
 			shard
 				.on('death', (process) =>
 					Logger.fatal(
-						chalk.redBright(
-							`The following process has exited:\n${chalk.red(
-								JSON.stringify(process),
-							)}`,
-						),
+						chalk.redBright('The following process has exited:'),
+						chalk.red(JSON.stringify(process)),
 					),
 				)
 				.on('disconnect', () =>
@@ -34,10 +31,9 @@ import Logger from './structures/logger';
 				.on('spawn', (process) =>
 					Logger.info(
 						chalk.greenBright(
-							`A Shard's child process/worker has been created.\n${chalk.green(
-								JSON.stringify(process),
-							)}`,
+							"A Shard's child process/worker has been created.",
 						),
+						chalk.green(JSON.stringify(process)),
 					),
 				)
 				.on('error', (error) =>

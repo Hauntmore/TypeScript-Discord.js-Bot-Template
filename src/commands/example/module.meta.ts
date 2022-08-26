@@ -1,6 +1,6 @@
-import type { ModuleMetaPayload } from '../../interfaces/index';
+import type { ModuleMetaPayload } from '../../interfaces';
 
-import { ModuleMetaType } from '../../enums/index';
+import { ModuleMetaType } from '../../enums';
 
 const ExampleModule: ModuleMetaPayload = {
 	description: 'Example!',

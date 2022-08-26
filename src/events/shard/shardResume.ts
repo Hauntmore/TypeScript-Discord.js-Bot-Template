@@ -22,8 +22,8 @@ export default class extends BaseEvent<typeof Event> {
 			chalk.yellowBright(
 				`Shard ${chalk.blue(id)} is attempting to reconnect/re-identify.`,
 			),
-			'Replayed Events',
-			chalk.grey(replayedEvents),
+			chalk.yellow('Replayed Events'),
+			replayedEvents,
 		);
 	}
 }

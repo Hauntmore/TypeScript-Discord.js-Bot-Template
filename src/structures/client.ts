@@ -13,7 +13,7 @@ import {
 	type RestEvents,
 } from 'discord.js';
 import { readdir } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { join } from 'node:path';
 import { promisify } from 'node:util';
 
 import Logger from './logger';
@@ -58,9 +58,9 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 		for (const file of files) {
 			delete require.cache[file];
 
-			const File = (await import(file)).default.default;
+			const Event = (await import(file)).default.default;
 
-			const event = new File() as BaseEvent<Events>;
+			const event = new Event() as BaseEvent<Events>;
 
 			if (event.once) {
 				this.once(
@@ -93,20 +93,18 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 	private async _loadCommands(
 		moduleMetaFileName: string = 'module.meta.js',
 	): Promise<Collection<string, Command>> {
-		const baseCommandsDirectoryPath = resolve(__dirname, '..', 'commands');
+		const baseCommandsPath = join(__dirname, '..', 'commands');
 
-		const modules = await readdir(baseCommandsDirectoryPath);
+		const modules = await readdir(baseCommandsPath);
 
 		for (const module of modules) {
-			const metaPath = resolve(baseCommandsDirectoryPath, module);
+			const metaPath = join(baseCommandsPath, module);
 
-			const moduleMeta = (await import(resolve(metaPath, moduleMetaFileName)))
+			const moduleMeta = (await import(join(metaPath, moduleMetaFileName)))
 				.default as ModuleMetaPayload;
 
 			Object.assign(moduleMeta, {
 				name: moduleMeta.name || module,
-				commands: moduleMeta.commands || [],
-				hidden: moduleMeta.hidden || false,
 				path: moduleMeta.path || metaPath,
 			});
 
@@ -117,8 +115,10 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 				chalk.magenta(`Loaded the ${chalk.blue(moduleMeta.name)} module.`),
 			);
 
+			const commands = [];
+
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			const files = await readdir(resolve(moduleMeta.path!));
+			const files = await readdir(moduleMeta.path!);
 
 			for (const file of files) {
 				delete require.cache[file];
@@ -127,7 +127,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 					continue;
 				} else {
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					const resolvedFilePath = resolve(moduleMeta.path!, file);
+					const resolvedFilePath = join(moduleMeta.path!, file);
 
 					const Command = (await import(resolvedFilePath)).default.default;
 
@@ -137,10 +137,9 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 						module: moduleMeta,
 					});
 
-					this.commands.set(command.data.name, command);
+					commands.push(Command);
 
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					moduleMeta.commands!.push(command);
+					this.commands.set(command.data.name, command);
 
 					Logger.info(
 						chalk.magenta(
@@ -151,6 +150,11 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 					);
 				}
 			}
+
+			Object.assign(moduleMeta, {
+				commands: moduleMeta.commands || [],
+				hidden: moduleMeta.hidden || false,
+			});
 		}
 
 		return this.commands;
