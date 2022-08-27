@@ -83,7 +83,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 			this.events.set(event.name, event);
 
 			Logger.info(
-				chalk.magenta(`The ${chalk.blue(event.name)} event has loaded.`),
+				chalk.magenta(`The ${chalk.blue(`${file}.js`)} event has loaded.`),
 			);
 		}
 
@@ -112,7 +112,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 			this.modules.set(moduleMeta.name!, moduleMeta);
 
 			Logger.info(
-				chalk.magenta(`Loaded the ${chalk.blue(moduleMeta.name)} module.`),
+				chalk.magenta(`Loaded the ${chalk.blue(`${module}.js`)} module.`),
 			);
 
 			const commands = [];
@@ -134,8 +134,18 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 					const command = new Command(this) as Command;
 
 					Object.defineProperty(command, 'module', {
-						value: moduleMeta,
+						value: command.module || moduleMeta,
 					});
+
+					if (!command.module) {
+						throw new Error(
+							`${file}.js is missing a module, either assign a ${chalk.bold(
+								'module.meta.ts',
+							)} file in the directory of the command file or assign the command a ${chalk.bold(
+								'module',
+							)} property with the module data.`,
+						);
+					}
 
 					commands.push(Command);
 
@@ -143,9 +153,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 
 					Logger.info(
 						chalk.magenta(
-							`The command ${chalk.blue(
-								`${command.data.name}.js`,
-							)} has loaded.`,
+							`The command ${chalk.blue(`${file}.js`)} has loaded.`,
 						),
 					);
 				}

@@ -2,6 +2,10 @@
 
 **You are expected to know the basic fundamentals of JavaScript, TypeScript, Node.js. It would also be useful if you know basic usage of your device's operating system.**
 
+## Required Versions
+1. You are required to have ['Node.js'](https://nodejs.org) `v16.9` (~**v7.21.1** npm) or above!
+2. Discord.js **v14.2.0**.
+
 ## Getting Started
 1. Setting up dotenv files.
     - Remove `.example` from the `production.env.example`, `development.env.example`, and `.env.example` files.
