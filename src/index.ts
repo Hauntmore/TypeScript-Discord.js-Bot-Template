@@ -4,6 +4,21 @@ import './setup';
 
 import Logger from './structures/logger';
 
+process.on('unhandledRejection', (reason: Error, promise) =>
+	Logger.error(
+		chalk.red(reason.stack || reason.message),
+		chalk.magenta(JSON.stringify(promise)),
+	),
+);
+
+process.on('uncaughtExceptionMonitor', (error, origin) =>
+	Logger.error(chalk.red(error.stack || error.message, chalk.bgRed(origin))),
+);
+
+process.on('uncaughtException', (error, origin) =>
+	Logger.error(chalk.red(error.stack || error.message, chalk.bgRed(origin))),
+);
+
 (async () => {
 	try {
 		const manager = new ShardingManager('./dist/src/main.js');
