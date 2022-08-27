@@ -1,7 +1,7 @@
 {
   "apps": [
       {
-          "name": "dank-assistant",
+          "name": "my-bot",
           "script": "./dist/src/index.js",
           "watch": false,
           "autorestart": true,
