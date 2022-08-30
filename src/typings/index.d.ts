@@ -8,7 +8,6 @@ declare global {
 			DISCORD_TOKEN: string;
 			MONGODB_URL: string;
 			CLIENT_ID: Snowflake;
-			STATCORD_KEY: string;
 			NODE_ENV: NodeEnv;
 		}
 	}

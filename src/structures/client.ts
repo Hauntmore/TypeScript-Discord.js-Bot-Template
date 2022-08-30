@@ -4,6 +4,7 @@ import type BaseEvent from './event';
 import chalk from 'chalk';
 import {
 	type APIEmbed,
+	type CacheType,
 	Client,
 	type ClientEvents,
 	type ClientOptions,
@@ -13,15 +14,15 @@ import {
 	type RestEvents,
 } from 'discord.js';
 import { readdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, parse } from 'node:path';
 import { promisify } from 'node:util';
 
 import Logger from './logger';
 
 class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
-	public readonly commands: Collection<string, Command>;
+	public readonly commands: Collection<string, Command<CacheType, boolean>>;
 
-	public readonly events: Collection<Events, BaseEvent<Events>>;
+	public readonly events: Collection<Events, BaseEvent<Events, boolean>>;
 
 	public readonly modules: Collection<string, ModuleMetaPayload>;
 
@@ -29,9 +30,9 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 	public constructor(override readonly options: ClientOptions) {
 		super(options);
 
-		this.commands = new Collection();
-		this.events = new Collection();
-		this.modules = new Collection();
+		this.commands = new Collection<string, Command<CacheType, boolean>>();
+		this.events = new Collection<Events, BaseEvent<Events, boolean>>();
+		this.modules = new Collection<string, ModuleMetaPayload>();
 	}
 
 	public makeEmbed(data?: EmbedData | APIEmbed | undefined): EmbedBuilder {
@@ -48,7 +49,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 
 	private async _loadEvents(
 		eventsDirectoryGlobPattern: string = '**/*.js',
-	): Promise<Collection<Events, BaseEvent<Events>>> {
+	): Promise<Collection<Events, BaseEvent<Events, boolean>>> {
 		const glob = promisify((await import('glob')).default);
 
 		const files = await glob(
@@ -58,9 +59,11 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 		for (const file of files) {
 			delete require.cache[file];
 
+			const { name } = parse(file);
+
 			const Event = (await import(file)).default.default;
 
-			const event = new Event() as BaseEvent<Events>;
+			const event = new Event() as BaseEvent<Events, boolean>;
 
 			if (event.once) {
 				this.once(
@@ -83,7 +86,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 			this.events.set(event.name, event);
 
 			Logger.info(
-				chalk.magenta(`The ${chalk.blue(`${file}.js`)} event has loaded.`),
+				chalk.magenta(`The ${chalk.blue(`${name}.js`)} event has loaded.`),
 			);
 		}
 
@@ -92,7 +95,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 
 	private async _loadCommands(
 		moduleMetaFileName: string = 'module.meta.js',
-	): Promise<Collection<string, Command>> {
+	): Promise<Collection<string, Command<CacheType, boolean>>> {
 		const baseCommandsPath = join(__dirname, '..', 'commands');
 
 		const modules = await readdir(baseCommandsPath);
@@ -131,7 +134,7 @@ class MyClient<Ready extends boolean = boolean> extends Client<Ready> {
 
 					const Command = (await import(resolvedFilePath)).default.default;
 
-					const command = new Command(this) as Command;
+					const command = new Command(this) as Command<CacheType, boolean>;
 
 					Object.defineProperty(command, 'module', {
 						value: command.module || moduleMeta,

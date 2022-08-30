@@ -6,13 +6,17 @@ import type {
 	ChatInputCommandInteraction,
 } from 'discord.js';
 
-abstract class BaseCommand implements CommandPayload {
+abstract class BaseCommand<
+	Cache extends CacheType,
+	Ready extends boolean = true,
+> implements CommandPayload
+{
 	public readonly data: CommandPayload['data'];
 
 	public readonly module?: CommandPayload['module'] | undefined;
 
 	public constructor(
-		protected readonly client: Client<boolean>,
+		protected readonly client: Client<Ready>,
 		public readonly payload: CommandPayload,
 	) {
 		this.client = client;
@@ -20,7 +24,7 @@ abstract class BaseCommand implements CommandPayload {
 	}
 
 	public abstract chatInput(
-		interaction: ChatInputCommandInteraction<CacheType>,
+		interaction: ChatInputCommandInteraction<Cache>,
 	): Awaitable<void>;
 }
 

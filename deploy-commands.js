@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const { REST, Routes } = require('discord.js');
-const path = require('node:path');
+// eslint-disable-next-line @typescript-eslint/unbound-method
+const { join, parse } = require('node:path');
 const { promisify } = require('node:util');
 require('./src/setup');
 
@@ -17,11 +18,13 @@ const rest = new REST({ version }).setToken(process.env['DISCORD_TOKEN']);
 (async (moduleMetaFileName = 'module.meta.js', pattern = '**/*.js') => {
 	try {
 		const files = await glob(
-			path.join(process.cwd(), 'dist', 'src', 'commands', pattern),
+			join(process.cwd(), 'dist', 'src', 'commands', pattern),
 		);
 
 		for (const file of files) {
 			delete require.cache[file];
+
+			const { name } = parse(file);
 
 			if (file.endsWith(moduleMetaFileName)) {
 				continue;
@@ -33,7 +36,7 @@ const rest = new REST({ version }).setToken(process.env['DISCORD_TOKEN']);
 				commands.push(command.data.toJSON());
 
 				Logger.info(
-					chalk`{magenta The command ${chalk`{blue ${command.data.name}.js}`} has loaded.}`,
+					chalk`{magenta The command ${chalk`{blue ${name}.js}`} has loaded.}`,
 				);
 			}
 		}

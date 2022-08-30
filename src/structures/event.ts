@@ -6,7 +6,7 @@ import { client } from '../main';
 
 type Payload = EventPayload<Events>;
 
-abstract class BaseEvent<EventName extends Events>
+abstract class BaseEvent<EventName extends Events, Ready extends boolean = true>
 	implements EventPayload<Events>
 {
 	public readonly name: Payload['name'];
@@ -17,7 +17,7 @@ abstract class BaseEvent<EventName extends Events>
 
 	public readonly rest?: Payload['rest'] | undefined;
 
-	protected readonly client!: Client<boolean>;
+	protected readonly client!: Client<Ready>;
 
 	public constructor(public readonly payload: Payload) {
 		this.client = client;
