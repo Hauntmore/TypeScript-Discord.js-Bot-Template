@@ -28,7 +28,7 @@
         - Command deployments should be almost instant whether it is being deployed in a guild or globally.
 
 ## Start Scripts
-__**Disclaimer**__ We also have .replit and start.bat files you can use, but you must change the scripts yourselves if you do not want the one that is currently set.
+__**Disclaimer**__ We also have .replit and start.bat files you can use, along with a Procfile for [Heroku](https://heroku.com) but you must change the scripts yourselves if you do not want the one that is currently set.
 
 ## Docker
 Docker will be in the works, no ETA is set for this.
