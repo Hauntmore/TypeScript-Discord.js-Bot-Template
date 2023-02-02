@@ -85,7 +85,7 @@
     "@discordjs/voice": "^0.11.0",
     "bufferutil": "^4.0.6",
     "erlpack": "github:discord/erlpack",
-    "heroku": "^7.62.0",
+    "heroku": "^8.0.1",
     "utf-8-validate": "^5.0.9"
   }
 }
